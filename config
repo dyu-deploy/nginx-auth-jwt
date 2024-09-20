@@ -3,15 +3,35 @@ ngx_addon_name=ngx_http_auth_jwt_module
 
 ngx_module_type=HTTP
 ngx_module_name=ngx_http_auth_jwt_module
-ngx_module_srcs="$ngx_addon_dir/src/jwt/base64.c \
+ngx_module_srcs="$ngx_addon_dir/jansson/src/dump.c \
+                 $ngx_addon_dir/jansson/src/error.c \
+                 $ngx_addon_dir/jansson/src/hashtable.c \
+                 $ngx_addon_dir/jansson/src/hashtable_seed.c \
+                 $ngx_addon_dir/jansson/src/load.c \
+                 $ngx_addon_dir/jansson/src/memory.c \
+                 $ngx_addon_dir/jansson/src/pack_unpack.c \
+                 $ngx_addon_dir/jansson/src/strbuffer.c \
+                 $ngx_addon_dir/jansson/src/strconv.c \
+                 $ngx_addon_dir/jansson/src/utf.c \
+                 $ngx_addon_dir/jansson/src/value.c \
+                 $ngx_addon_dir/jansson/src/version.c \
+                 $ngx_addon_dir/src/jwt/base64.c \
                  $ngx_addon_dir/src/jwt/jwt-openssl.c \
                  $ngx_addon_dir/src/jwt/jwt.c \
                  $ngx_addon_dir/src/jwk.c \
                  $ngx_addon_dir/src/jwt_get_claims.c \
                  $ngx_addon_dir/src/jwt_requirement_operators.c \
                  $ngx_addon_dir/src/ngx_http_auth_jwt_module.c"
-ngx_module_deps=
-ngx_module_incs=
-ngx_module_libs="-lcrypto -ljansson -lssl"
+ngx_module_deps="$ngx_addon_dir/jansson/src/hashtable.h \
+                 $ngx_addon_dir/jansson/src/jansson_config.h \
+                 $ngx_addon_dir/jansson/src/jansson_private.h \
+                 $ngx_addon_dir/jansson/src/jansson_private_config.h \
+                 $ngx_addon_dir/jansson/src/lookup3.h \
+                 $ngx_addon_dir/jansson/src/strbuffer.h \
+                 $ngx_addon_dir/jansson/src/utf.h"
+ngx_module_incs="$ngx_addon_dir/jansson/src"
+ngx_module_libs="-lcrypto -lssl"
+
+CFLAGS="$CFLAGS -DHAVE_CONFIG_H"
 
 . auto/module
